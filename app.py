@@ -13,6 +13,7 @@ import time
 
 def initialize_driver():
     """Initialize the Selenium WebDriver with Chrome."""
+   
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Run in headless mode
     chrome_options.add_argument("--no-sandbox")
@@ -41,7 +42,7 @@ def scrape_live_matches(driver):
     """Scrape live match details from the page."""
     match_details = []
     try:
-        WebDriverWait(driver, 60).until(
+        WebDriverWait(driver, 120).until(
             EC.presence_of_element_located((By.CLASS_NAME, "event__match--live"))
         )
         
