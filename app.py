@@ -20,6 +20,8 @@ def initialize_driver():
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--disable-gpu")
+
     try:
         driver = webdriver.Chrome(service=Service(), options=chrome_options)
         return driver
@@ -221,5 +223,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
