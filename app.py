@@ -1,10 +1,8 @@
-
 import streamlit as st
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
@@ -14,16 +12,16 @@ import time
 
 def initialize_driver():
     """Initialize the Selenium WebDriver with Chrome."""
-   
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument("--disable-gpu")
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")  # Run in headless mode
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--disable-gpu")
 
     try:
-        driver = webdriver.Chrome(service=Service(), options=chrome_options)
+        # Initialize the Chrome driver with the specified options
+        driver = webdriver.Chrome(service=Service(), options=options)
         return driver
     except Exception as e:
         st.error(f"An error occurred while initializing the WebDriver: {str(e)}")
@@ -35,7 +33,7 @@ def click_live_button(driver):
         live_button = WebDriverWait(driver, 30).until(
             EC.element_to_be_clickable((By.XPATH, "//div[contains(text(),'LIVE')]"))
         )
-        ActionChains(driver).move_to_element(live_button).click().perform()
+        live_button.click()  # Directly click on the button
         return True
     except Exception as e:
         st.error(f"An error occurred while clicking the 'LIVE' button: {str(e)}")
@@ -223,4 +221,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
